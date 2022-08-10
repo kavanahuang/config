@@ -74,6 +74,7 @@ func (tf *tomlConfig) ToInt() int {
 }
 
 /*
+Example:
 	var structured structuredConfig
 	config.Toml.NewStructToml("config", "config.toml", &structured)
 */
