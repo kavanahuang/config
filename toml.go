@@ -46,14 +46,36 @@ func (tf *tomlConfig) Get(key string) *tomlConfig {
 	return tf
 }
 
-// Example: result := Tome.NewToml(dirname, filename).Zone("zoneName").Get("key").To()
+/**
+ * Example: result := Tome.NewToml(dirname, filename).Zone("zoneName").Get("key").To()
+ */
 func (tf *tomlConfig) To() interface{} {
 	return tf.cfg.Get(tf.keyName)
 }
 
-// Example: result := Tome.NewToml(dirname, filename).Get("zoneName.key")
-func (tf *tomlConfig) Fetch(key string) interface{} {
-	return tf.cfg.Get(key)
+// Example: result := Tome.NewToml(dirname, filename).Zone("zoneName").Get("key").AtStr()
+func (tf *tomlConfig) AtStr() string {
+	tf.value = tf.cfg.Get(tf.keyName)
+	return tf.value.(string)
+}
+
+// Example: result := Tome.NewToml(dirname, filename).Zone("zoneName").Get("key").AtInt()
+func (tf *tomlConfig) AtInt() int {
+	tf.value = tf.cfg.Get(tf.keyName)
+	return tf.value.(int)
+}
+
+// Example: result := Tome.NewToml(dirname, filename).Zone("zoneName").Get("key").AtBool()
+func (tf *tomlConfig) AtBool() bool {
+	tf.value = tf.cfg.Get(tf.keyName)
+	return tf.value.(bool)
+}
+
+// Example: result := Tome.NewToml(dirname, filename).Zone("zoneName").Fetch("key").ToStr()
+func (tf *tomlConfig) Fetch(key string) *tomlConfig {
+	tf.keyName = tf.keyName + "." + key
+	tf.value = tf.cfg.Get(tf.keyName)
+	return tf
 }
 
 // Example: result := Tome.NewToml(dirname, filename).Read("zoneName.key").ToStr() or ToInt()
@@ -71,6 +93,11 @@ func (tf *tomlConfig) ToStr() string {
 // Example: result := Tome.NewToml(dirname, filename).Read("zoneName.key").ToInt()
 func (tf *tomlConfig) ToInt() int {
 	return tf.value.(int)
+}
+
+// Example: result := Tome.NewToml(dirname, filename).Read("zoneName.key").ToBool()
+func (tf *tomlConfig) ToBool() bool {
+	return tf.value.(bool)
 }
 
 /*

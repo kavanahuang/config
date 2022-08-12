@@ -1,0 +1,6 @@
+[log]
+    relative    = true          # true: Default use relative path, false: use absolute path.
+    dir         =  "../logs"    # Log storage directory.
+    name        = "logs.log"    # Log filename.
+    prefix      =  ""           # Prefix for cutting log filename.
+    level       =  "INFO"       # The log level, if the value is OFF, then log off.
