@@ -9,8 +9,8 @@ package config
 import (
 	"github.com/BurntSushi/toml"
 	"github.com/kavanahuang/common"
-	"github.com/kavanahuang/log"
 	goToml "github.com/pelletier/go-toml"
+	"log"
 )
 
 type TomlConfig struct {
@@ -27,7 +27,7 @@ func (tf *TomlConfig) NewToml(dirname string, filename string) *TomlConfig {
 	conf, err := goToml.LoadFile(name)
 
 	if err != nil {
-		log.Logs.Error("Load toml file error: ", err)
+		log.Println("Load toml file error: ", err)
 	}
 
 	tf.cfg = conf
@@ -110,7 +110,7 @@ func (tf *TomlConfig) NewStructToml(dirname string, filename string, structured 
 	path := common.GetCustomConfigPath(dirname, filename)
 	_, err := toml.DecodeFile(path, structured)
 	if err != nil {
-		log.Logs.Error("Load or decode toml file error: ", err)
+		log.Println("Load or decode toml file error: ", err)
 	}
 
 	return structured
