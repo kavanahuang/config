@@ -78,6 +78,16 @@ func (tf *TomlConfig) Fetch(key string) *TomlConfig {
 	return tf
 }
 
+/*
+ The Fetch function alias
+ Example: result := Tome.NewToml(dirname, filename).Zone("zoneName").Got("key").ToStr()
+*/
+func (tf *TomlConfig) Got(key string) *TomlConfig {
+	tf.keyName = tf.keyName + "." + key
+	tf.value = tf.cfg.Get(tf.keyName)
+	return tf
+}
+
 // Example: result := Tome.NewToml(dirname, filename).Read("zoneName.key").ToStr() or ToInt()
 func (tf *TomlConfig) Read(key string) *TomlConfig {
 	tf.keyName = key
