@@ -13,16 +13,16 @@ import (
 	goToml "github.com/pelletier/go-toml"
 )
 
-type tomlConfig struct {
+type TomlConfig struct {
 	keyName    string
 	value      interface{}
 	Structured interface{}
 	cfg        *goToml.Tree
 }
 
-var Toml = new(tomlConfig)
+var Toml = new(TomlConfig)
 
-func (tf *tomlConfig) NewToml(dirname string, filename string) *tomlConfig {
+func (tf *TomlConfig) NewToml(dirname string, filename string) *TomlConfig {
 	name := common.GetCustomConfigPath(dirname, filename)
 	conf, err := goToml.LoadFile(name)
 
@@ -35,13 +35,13 @@ func (tf *tomlConfig) NewToml(dirname string, filename string) *tomlConfig {
 }
 
 // Example: result := Tome.NewToml(dirname, filename).Zone("zoneName").Get("key").To()
-func (tf *tomlConfig) Zone(key string) *tomlConfig {
+func (tf *TomlConfig) Zone(key string) *TomlConfig {
 	tf.keyName = key
 	return tf
 }
 
 // Example: result := Tome.NewToml(dirname, filename).Zone("zoneName").Get("key").To()
-func (tf *tomlConfig) Get(key string) *tomlConfig {
+func (tf *TomlConfig) Get(key string) *TomlConfig {
 	tf.keyName = tf.keyName + "." + key
 	return tf
 }
@@ -49,54 +49,54 @@ func (tf *tomlConfig) Get(key string) *tomlConfig {
 /**
  * Example: result := Tome.NewToml(dirname, filename).Zone("zoneName").Get("key").To()
  */
-func (tf *tomlConfig) To() interface{} {
+func (tf *TomlConfig) To() interface{} {
 	return tf.cfg.Get(tf.keyName)
 }
 
 // Example: result := Tome.NewToml(dirname, filename).Zone("zoneName").Get("key").AtStr()
-func (tf *tomlConfig) AtStr() string {
+func (tf *TomlConfig) AtStr() string {
 	tf.value = tf.cfg.Get(tf.keyName)
 	return tf.value.(string)
 }
 
 // Example: result := Tome.NewToml(dirname, filename).Zone("zoneName").Get("key").AtInt()
-func (tf *tomlConfig) AtInt() int {
+func (tf *TomlConfig) AtInt() int {
 	tf.value = tf.cfg.Get(tf.keyName)
 	return tf.value.(int)
 }
 
 // Example: result := Tome.NewToml(dirname, filename).Zone("zoneName").Get("key").AtBool()
-func (tf *tomlConfig) AtBool() bool {
+func (tf *TomlConfig) AtBool() bool {
 	tf.value = tf.cfg.Get(tf.keyName)
 	return tf.value.(bool)
 }
 
 // Example: result := Tome.NewToml(dirname, filename).Zone("zoneName").Fetch("key").ToStr()
-func (tf *tomlConfig) Fetch(key string) *tomlConfig {
+func (tf *TomlConfig) Fetch(key string) *TomlConfig {
 	tf.keyName = tf.keyName + "." + key
 	tf.value = tf.cfg.Get(tf.keyName)
 	return tf
 }
 
 // Example: result := Tome.NewToml(dirname, filename).Read("zoneName.key").ToStr() or ToInt()
-func (tf *tomlConfig) Read(key string) *tomlConfig {
+func (tf *TomlConfig) Read(key string) *TomlConfig {
 	tf.keyName = key
 	tf.value = tf.To()
 	return tf
 }
 
 // Example: result := Tome.NewToml(dirname, filename).Read("zoneName.key").ToStr()
-func (tf *tomlConfig) ToStr() string {
+func (tf *TomlConfig) ToStr() string {
 	return tf.value.(string)
 }
 
 // Example: result := Tome.NewToml(dirname, filename).Read("zoneName.key").ToInt()
-func (tf *tomlConfig) ToInt() int {
+func (tf *TomlConfig) ToInt() int {
 	return tf.value.(int)
 }
 
 // Example: result := Tome.NewToml(dirname, filename).Read("zoneName.key").ToBool()
-func (tf *tomlConfig) ToBool() bool {
+func (tf *TomlConfig) ToBool() bool {
 	return tf.value.(bool)
 }
 
@@ -105,7 +105,7 @@ Example:
 	var structured structuredConfig
 	config.Toml.NewStructToml("config", "config.toml", &structured)
 */
-func (tf *tomlConfig) NewStructToml(dirname string, filename string, structured any) any {
+func (tf *TomlConfig) NewStructToml(dirname string, filename string, structured any) any {
 
 	path := common.GetCustomConfigPath(dirname, filename)
 	_, err := toml.DecodeFile(path, structured)
