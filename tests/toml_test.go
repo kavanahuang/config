@@ -10,6 +10,7 @@ package tests
 
 import (
 	"github.com/kavanahuang/config"
+	"github.com/kavanahuang/test"
 	"testing"
 )
 
@@ -26,7 +27,7 @@ type tomlCfg struct {
 }
 
 func TestTomlStart(t *testing.T) {
-	Test.Start("toml")
+	test.Test.Start("toml")
 }
 
 func TestNewStructToml(t *testing.T) {
@@ -38,17 +39,17 @@ func TestNewStructToml(t *testing.T) {
 	level := cfg.Log.Level
 
 	if cfg.Log.Relative {
-		Test.T(t).Logs(msg).Ok(relative)
+		test.Test.T(t).Logs(msg).Ok(relative)
 	} else {
-		Test.T(t).Logs(msg).No(relative)
+		test.Test.T(t).Logs(msg).No(relative)
 	}
 
 	msg = "NewStructToml: Level is INFO: "
 	assert := "INFO"
 	if level == assert {
-		Test.T(t).Logs(msg).Ok(level)
+		test.Test.T(t).Logs(msg).Ok(level)
 	} else {
-		Test.T(t).Logs(msg).No(level)
+		test.Test.T(t).Logs(msg).No(level)
 	}
 }
 
@@ -60,17 +61,17 @@ func TestGet(t *testing.T) {
 	level := newToml.Zone("log").Get("level").AtStr()
 
 	if relative {
-		Test.T(t).Logs(msg).Ok(relative)
+		test.Test.T(t).Logs(msg).Ok(relative)
 	} else {
-		Test.T(t).Logs(msg).No(relative)
+		test.Test.T(t).Logs(msg).No(relative)
 	}
 
 	msg = "Get: Level is INFO: "
 	assert := "INFO"
 	if level == assert {
-		Test.T(t).Logs(msg).Ok(level)
+		test.Test.T(t).Logs(msg).Ok(level)
 	} else {
-		Test.T(t).Logs(msg).No(level)
+		test.Test.T(t).Logs(msg).No(level)
 	}
 }
 
@@ -82,17 +83,17 @@ func TestGetTo(t *testing.T) {
 	level := newToml.Zone("log").Get("level").To()
 
 	if relative.(bool) {
-		Test.T(t).Logs(msg).Ok(relative)
+		test.Test.T(t).Logs(msg).Ok(relative)
 	} else {
-		Test.T(t).Logs(msg).No(relative)
+		test.Test.T(t).Logs(msg).No(relative)
 	}
 
 	msg = "GetTo: Level is INFO: "
 	assert := "INFO"
 	if level.(string) == assert {
-		Test.T(t).Logs(msg).Ok(level)
+		test.Test.T(t).Logs(msg).Ok(level)
 	} else {
-		Test.T(t).Logs(msg).No(level)
+		test.Test.T(t).Logs(msg).No(level)
 	}
 }
 
@@ -104,20 +105,20 @@ func TestFetch(t *testing.T) {
 	level := newToml.Zone("log").Fetch("level").ToStr()
 
 	if relative {
-		Test.T(t).Logs(msg).Ok(relative)
+		test.Test.T(t).Logs(msg).Ok(relative)
 	} else {
-		Test.T(t).Logs(msg).No(relative)
+		test.Test.T(t).Logs(msg).No(relative)
 	}
 
 	msg = "Fetch: Level is INFO: "
 	assert := "INFO"
 	if level == assert {
-		Test.T(t).Logs(msg).Ok(level)
+		test.Test.T(t).Logs(msg).Ok(level)
 	} else {
-		Test.T(t).Logs(msg).No(level)
+		test.Test.T(t).Logs(msg).No(level)
 	}
 }
 
 func TestTomlEnd(t *testing.T) {
-	Test.End("toml")
+	test.Test.End("toml")
 }

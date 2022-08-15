@@ -116,7 +116,6 @@ Example:
 	config.Toml.NewStructToml("config", "config.toml", &structured)
 */
 func (tf *TomlConfig) NewStructToml(dirname string, filename string, structured any) any {
-
 	path := common.GetCustomConfigPath(dirname, filename)
 	_, err := toml.DecodeFile(path, structured)
 	if err != nil {
