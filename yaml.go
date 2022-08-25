@@ -8,6 +8,7 @@ package config
 
 import (
 	"github.com/kavanahuang/common"
+	"github.com/kavanahuang/system"
 	"gopkg.in/yaml.v3"
 	"log"
 )
@@ -19,7 +20,7 @@ type YamlConfig struct {
 var Yaml = new(YamlConfig)
 
 func (yc *YamlConfig) NewYaml(dirname string, filename string) *YamlConfig {
-	name := common.GetCustomConfigPath(dirname, filename)
+	name := system.GetFilepath(dirname, filename)
 	if common.Files.PathExists(name) {
 		yc.cfg = common.Files.GetFile(name)
 	}
