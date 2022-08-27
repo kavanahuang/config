@@ -65,6 +65,12 @@ func (tf *TomlConfig) AtInt() int {
 	return tf.value.(int)
 }
 
+// Example: result := Tome.NewToml(dirname, filename).Zone("zoneName").Get("key").AtInt64()
+func (tf *TomlConfig) AtInt64() int64 {
+	tf.value = tf.cfg.Get(tf.keyName)
+	return tf.value.(int64)
+}
+
 // Example: result := Tome.NewToml(dirname, filename).Zone("zoneName").Get("key").AtBool()
 func (tf *TomlConfig) AtBool() bool {
 	tf.value = tf.cfg.Get(tf.keyName)
@@ -103,6 +109,11 @@ func (tf *TomlConfig) ToStr() string {
 // Example: result := Tome.NewToml(dirname, filename).Read("zoneName.key").ToInt()
 func (tf *TomlConfig) ToInt() int {
 	return tf.value.(int)
+}
+
+// Example: result := Tome.NewToml(dirname, filename).Read("zoneName.key").ToInt64()
+func (tf *TomlConfig) ToInt64() int64 {
+	return tf.value.(int64)
 }
 
 // Example: result := Tome.NewToml(dirname, filename).Read("zoneName.key").ToBool()
